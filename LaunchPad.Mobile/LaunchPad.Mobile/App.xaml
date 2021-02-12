@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:converters="clr-namespace:LaunchPad.Mobile.Converters"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             android:Application.WindowSoftInputModeAdjust="Resize"
+             x:Class="LaunchPad.Mobile.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <converters:InverseConverter x:Key="InverseConverter"/>
+            <converters:IntToBoolConverter x:Key="IntToBoolConverter"/>
+            <converters:TextToDoubleConverter x:Key="TextToDoubleConverter"/>
+            <converters:SecondaryTextToDoubleConverter x:Key="SecondaryTextToDoubleConverter"/>
+            <converters:ComparisionConverter x:Key="ComparisionConverter"/>
+            <converters:CollectionToVisibilityConverter x:Key="CollectionToVisibilityConverter"/>
+            <converters:InverseCollectionToVisibilityConverter x:Key="InverseCollectionToVisibilityConverter"/>
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+            <converters:InverseStringToVisibilityConverter x:Key="InverseStringToVisibilityConverter"/>
+            <converters:CollectionToBasisConverter x:Key="CollectionToBasisConverter"/>
+            <converters:TextToWidthConverter x:Key="TextToWidthConverter"/>
+            
+            <Style TargetType="NavigationPage">
+                <Setter Property="BarBackgroundColor" Value="#000000"/>
+                <Setter Property="BarTextColor" Value="White"/>
+            </Style>
+            <Style TargetType="Label" x:Key="BaseLabelStyle">
+                <Setter Property="TextColor" Value="#000a12"/>
+            </Style>
+            <Style TargetType="Label" x:Key="BaseTabLabelStyle" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TabTitleLabelStyle" BasedOn="{StaticResource BaseTabLabelStyle}">
+                <Setter Property="FontSize" Value="22"/>
+                <Setter Property="FontFamily" Value="BoldFont"/>
+            </Style>
+            <Style TargetType="Label" x:Key="TabSubTitleLabelStyle" BasedOn="{StaticResource BaseTabLabelStyle}">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontFamily" Value="RegularFont"/>
+            </Style>
+            <Style TargetType="Label" x:Key="ContentTitle" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="RegularFont"/>
+            </Style>
+            <Style TargetType="Label" x:Key="ContentDescription" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontFamily" Value="RegularFont"/>
+            </Style>
+            <Style TargetType="Label" x:Key="ContentProperty" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontFamily" Value="RegularFont"/>
+            </Style>
+            <Style TargetType="Label" x:Key="ContentAdditionalInfoTitle" BasedOn="{StaticResource BaseLabelStyle}">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontFamily" Value="RegularFont"/>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontFamily" Value="RegularFont"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

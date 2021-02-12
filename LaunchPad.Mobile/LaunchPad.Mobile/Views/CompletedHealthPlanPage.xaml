@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                        xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                        xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+                        x:Class="LaunchPad.Mobile.Views.CompletedHealthPlanPage"
+                        NavigationPage.HasBackButton="False">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayout/>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_list"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*,70">
+            <ScrollView>
+                <Grid RowDefinitions="200,*" BackgroundColor="#ffffff"  IsVisible="{Binding IsContentVisible}">
+                    <Grid BackgroundColor="#000000" Padding="20,0">
+                        <Grid BackgroundColor="Black" VerticalOptions="Center">
+                            <Grid RowDefinitions="*,*" ColumnDefinitions="3*,*" VerticalOptions="Center" RowSpacing="0">
+                                <Label x:Name="CompleteHealthPlanHeaderLabel" TextColor="White" Style="{StaticResource ContentTitle}"/>
+                                <Grid RowDefinitions="30,30" RowSpacing="0" Grid.Column="1" HorizontalOptions="End" Padding="10">
+                                    <Label Grid.Row="0"  FontSize="{OnIdiom Phone='16', Tablet='22'}" TextColor="White" HorizontalOptions="End" Style="{StaticResource ContentTitle}">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="£{0} / £{1}">
+                                                <Binding Path="AmountPaid"/>
+                                                <Binding Path="AmountToBePaid"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <StackLayout Grid.Row="1" HorizontalOptions="End" Orientation="Horizontal" BindableLayout.ItemsSource="{Binding StarRatingsCollection}" Spacing="10" Margin="0,-5,0,0">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <forms:CachedImage Source="{Binding Star}" WidthRequest="{Binding WidthRequest}" HeightRequest="{Binding HeightRequest}" Margin="{Binding Margin}"/>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Grid>
+                                <Label x:Name="ToScanMessageLabel" Grid.Row="1" Text="Scan each item to accrue loyalty points" VerticalTextAlignment="Center" TextColor="White" Style="{StaticResource ContentTitle}"/>
+                                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End">
+                                    <Label Text="{Binding TotalLoyaltyPoints}" FontSize="{OnIdiom Phone='20', Tablet='32'}" VerticalTextAlignment="Center" TextColor="White" Style="{StaticResource ContentTitle}"/>
+                                    <forms:CachedImage Source="icon_stars_black" HorizontalOptions="End" VerticalOptions="Center" WidthRequest="100" HeightRequest="40" Aspect="Fill"/>
+                                </StackLayout>
+
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <FlexLayout Grid.Row="1" BindableLayout.ItemsSource="{Binding CompletedHealthPlansCollection}" 
+           Wrap="Wrap"
+           Direction="Row"
+           JustifyContent="Start"
+           AlignItems="Start"
+           AlignContent="Start"
+           Padding="20">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid BackgroundColor="#f" RowDefinitions="250,Auto" RowSpacing="20" FlexLayout.Basis="{OnIdiom Phone='50%', Tablet='33%'}" FlexLayout.AlignSelf="Start" Margin="20,10">
+                                    <Grid BackgroundColor="#e2e2e2">
+                                        <forms:CachedImage Source="{Binding HealthPlanToComplete.ImageUrl}" WidthRequest="150" HeightRequest="150" HorizontalOptions="Center" VerticalOptions="Center">
+                                            <forms:CachedImage.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="scan_event" CommandParameter="{Binding .}" NumberOfTapsRequired="1"/>
+                                            </forms:CachedImage.GestureRecognizers>
+                                        </forms:CachedImage>
+                                    </Grid>
+                                    <StackLayout Grid.Row="0" x:Name="ScannerStackLayout" IsVisible="{Binding IsScanning}">
+
+                                    </StackLayout>
+                                    <Grid RowDefinitions="*,*,*" ColumnDefinitions="*,*" Padding="30" IsVisible="{Binding IsScanning}" BackgroundColor="Transparent">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6"/>
+                                            </Grid.ColumnDefinitions>
+                                            <BoxView BackgroundColor="#ffffff"/>
+                                        </Grid>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="50"/>
+                                            </Grid.ColumnDefinitions>
+                                            <BoxView BackgroundColor="#ffffff"/>
+                                        </Grid>
+                                        <Grid RowSpacing="-6" ColumnSpacing="-6" Grid.Row="2" VerticalOptions="End">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50"/>
+                                                <RowDefinition Height="6"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6"/>
+                                                <ColumnDefinition Width="50"/>
+                                            </Grid.ColumnDefinitions>
+                                            <BoxView BackgroundColor="#ffffff"/>
+                                            <BoxView Grid.Row="1" Grid.Column="1" BackgroundColor="#ffffff"/>
+                                        </Grid>
+                                        <Grid RowSpacing="-6" ColumnSpacing="-6" Grid.Column="1" HorizontalOptions="End">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="6"/>
+                                                <RowDefinition Height="50"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="50"/>
+                                                <ColumnDefinition Width="6"/>
+                                            </Grid.ColumnDefinitions>
+                                            <BoxView BackgroundColor="#ffffff"/>
+                                            <BoxView Grid.Row="1" Grid.Column="1" BackgroundColor="#ffffff"/>
+                                        </Grid>
+                                        <Grid VerticalOptions="End" RowSpacing="-6" Grid.Row="2" Grid.Column="1" HorizontalOptions="End">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="50"/>
+                                                <RowDefinition Height="6"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="6"/>
+                                                <ColumnDefinition Width="50"/>
+                                            </Grid.ColumnDefinitions>
+                                            <BoxView Grid.ColumnSpan="2" WidthRequest="8" BackgroundColor="#ffffff" HorizontalOptions="End"/>
+                                            <BoxView Grid.Row="1" Grid.Column="1" BackgroundColor="#ffffff"/>
+                                        </Grid>
+                                    </Grid>
+
+                                    <BoxView BackgroundColor="Black" Opacity="0.4" IsVisible="{Binding IsProductScanned}"/>
+                                    <Image Source="icon_checked_circle" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding IsProductScanned}" WidthRequest="56" HeightRequest="56"/>
+                                    <Grid Grid.Row="1" RowDefinitions="Auto,Auto" ColumnDefinitions="2*,*" IsVisible="{Binding IsProductScanned}">
+                                        <StackLayout Orientation="Horizontal">
+                                            <forms:CachedImage Source="icon_loyality_points" VerticalOptions="Center" WidthRequest="56" HeightRequest="35" Aspect="Fill"/>
+                                            <Label TextType="Html" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Style="{StaticResource ContentTitle}" FontSize="20">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="{}+{0}">
+                                                        <Binding Path="HealthPlanToComplete.LoyalityPoints"/>
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                        </StackLayout>
+                                        <Button Grid.Column="1" Text="Remove" TextColor="Gray" BackgroundColor="#ffffff" BorderColor="Transparent" Clicked="remove_loyalty" CommandParameter="{Binding .}"/>
+                                        <Label Grid.Row="1" TextType="Html" Grid.ColumnSpan="2" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" Style="{StaticResource ContentTitle}" FontSize="20">
+                                            <Label.Text>
+                                                <MultiBinding StringFormat="{}{0} Loaylty Points Earned">
+                                                    <Binding Path="LoyalityPoints"/>
+                                                </MultiBinding>
+                                            </Label.Text>
+                                        </Label>
+                                    </Grid>
+                                    <Grid Grid.Row="1" RowDefinitions="Auto,Auto" IsVisible="{Binding IsProductScanned,Converter={StaticResource InverseConverter}}">
+                                        <StackLayout Grid.Row="0">
+                                            <Label Text="{Binding HealthPlanToComplete.ProgramName}" TextType="Html" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" Style="{StaticResource ContentTitle}" FontSize="14"/>
+                                            <Label Text="{Binding HealthPlanToComplete.Product.Name}" TextType="Html" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" Style="{StaticResource ContentTitle}" FontSize="20"/>
+                                            <Label LineBreakMode="WordWrap" HorizontalTextAlignment="Start" Style="{StaticResource ContentTitle}" FontSize="18">
+                                                <Label.Text>
+                                                    <MultiBinding StringFormat="£{0:F2}">
+                                                        <Binding Path="HealthPlanToComplete.SelectedVariant.Price"/>
+                                                    </MultiBinding>
+                                                </Label.Text>
+                                            </Label>
+                                        </StackLayout>
+                                        <StackLayout Grid.Row="1" IsVisible="{Binding IsDropdownVisible}">
+                                            <Grid RowDefinitions="56" ColumnDefinitions="2*,*" IsVisible="{Binding HealthPlanToComplete.ShouldShowSubVariant}">
+                                                <Grid Grid.Column="0" RowDefinitions="56" HorizontalOptions="FillAndExpand">
+                                                    <Frame Padding="10,5" BorderColor="#000000" CornerRadius="0" HasShadow="False">
+                                                        <Grid ColumnDefinitions="2*,Auto">
+                                                            <Picker FontSize="20" ItemsSource="{Binding Path=HealthPlanToComplete.VariantsList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding Path=HealthPlanToComplete.SelectedVariant}" />
+                                                            <Image Grid.Column="1" Source="icon_down_arrow" WidthRequest="36" HeightRequest="36" HorizontalOptions="End"/>
+                                                        </Grid>
+                                                    </Frame>
+                                                </Grid>
+                                                <Grid Grid.Column="1" RowDefinitions="56">
+                                                    <Frame Padding="10,5" BorderColor="#000000" CornerRadius="0" HasShadow="False">
+                                                        <Grid ColumnDefinitions="2*,Auto">
+                                                            <Picker x:Name="SubVariantsPicker" FontSize="20" ItemsSource="{Binding HealthPlanToComplete.PrescribingOptions}" ItemDisplayBinding="{Binding Title}" SelectedItem="{Binding HealthPlanToComplete.SelectedOption}" />
+                                                            <Image Grid.Column="1" Source="icon_down_arrow" WidthRequest="36" HeightRequest="36" HorizontalOptions="End"/>
+                                                        </Grid>
+                                                    </Frame>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid RowDefinitions="56" HorizontalOptions="FillAndExpand" IsVisible="{Binding HealthPlanToComplete.ShouldShowSubVariant,Converter={StaticResource InverseConverter}}">
+                                                <Frame Padding="10,5" BorderColor="#000000" CornerRadius="0" HasShadow="False">
+                                                    <Grid ColumnDefinitions="2*,Auto">
+                                                        <Picker FontSize="20" ItemsSource="{Binding HealthPlanToComplete.VariantsList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding HealthPlanToComplete.SelectedVariant}" />
+                                                        <Image Grid.Column="1" Source="icon_down_arrow" WidthRequest="36" HeightRequest="36" HorizontalOptions="End"/>
+                                                    </Grid>
+                                                </Frame>
+                                            </Grid>
+                                        </StackLayout>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </FlexLayout>
+                </Grid>
+            </ScrollView>
+            <Grid Grid.Row="1" Padding="20,0">
+                <Button BackgroundColor="#000" TextColor="#fff" IsVisible="{Binding CanPlaceOrder}" BorderWidth="1" Text="Finish" FontSize="20" Command="{Binding PlaceOrderCommand}" VerticalOptions="Center" HeightRequest="56"/>
+            </Grid>
+        </Grid>
+     
+    </ContentPage.Content>
+</controls:AnimationPage>

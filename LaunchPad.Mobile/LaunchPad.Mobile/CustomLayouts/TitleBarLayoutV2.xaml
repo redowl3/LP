@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LaunchPad.Mobile.CustomLayouts.TitleBarLayoutV2">
+  <ContentView.Content>
+        <Grid ColumnDefinitions="*,1,*,1,*" ColumnSpacing="0">
+
+            <BoxView Grid.Column="1" BackgroundColor="#000"/>
+            <Grid Grid.Column="2" Margin="30,0,0,0">
+                <Label Text="Eventis" HorizontalOptions="Center" VerticalTextAlignment="Center" TextColor="White" Style="{StaticResource ContentTitle}" Margin="15,0,0,0"/>
+            </Grid>
+            <StackLayout Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalOptions="Start" x:Name="ContainerStack">
+                <ImageButton BackgroundColor="Transparent" Source="icon_home" WidthRequest="32" HeightRequest="32" Command="{Binding HomeCommand}"/>
+                <ImageButton BackgroundColor="Transparent" Source="icon_back" WidthRequest="20" HeightRequest="20" Command="{Binding GoBackCommand}"/>
+                <StackLayout Orientation="Horizontal">
+                    <Image Source="icon_user_circle" WidthRequest="40" HeightRequest="40"/>
+                    <Label x:Name="LoggedInUserDetailLabel" VerticalTextAlignment="Center" TextColor="White" Style="{StaticResource ContentTitle}" FontSize="18"/>
+                </StackLayout>
+
+                <ImageButton BackgroundColor="Transparent" Source="icon_sign_out" WidthRequest="28" HeightRequest="28" Command="{Binding SignOutCommand}"/>
+            </StackLayout>
+            <BoxView Grid.Column="3" BackgroundColor="#000"/>
+            <Grid Grid.Column="4">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="10">
+                    <Label x:Name="CurrentClientName" HorizontalTextAlignment="End" VerticalTextAlignment="Center" TextColor="White" Style="{StaticResource ContentTitle}"/>
+                    <Image Source="icon_user" WidthRequest="28" HeightRequest="28"/>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

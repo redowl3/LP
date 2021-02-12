@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage  xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                         xmlns="http://xamarin.com/schemas/2014/forms"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                         xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts" 
+                         xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels"
+                         BackgroundColor="#ffffff"
+                         x:Class="LaunchPad.Mobile.Views.UserHealthPlanPage"
+                         NavigationPage.HasBackButton="False">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayout/>
+    </NavigationPage.TitleView>
+    <ContentPage.BindingContext>
+        <viewmodels:UserHealthPlanPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_list"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid x:Name="GridLayout"  RowDefinitions="Auto,2,*">
+            <Grid ColumnDefinitions="*,*" Padding="30" IsVisible="{Binding IsContentVisible}">
+                <Label x:Name="HealthPlanHeader" VerticalTextAlignment="Center" FontSize="18" Style="{StaticResource ContentTitle}"/>
+                <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="End" Spacing="20">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OpenBasketView" NumberOfTapsRequired="1"/>
+                    </StackLayout.GestureRecognizers>
+                    <Grid WidthRequest="400">
+                        <Label VerticalTextAlignment="Center" HorizontalTextAlignment="End" FontSize="18" Style="{StaticResource ContentTitle}">
+                            <Label.Text>
+                                <MultiBinding StringFormat="Sub Total : {0}">
+                                    <Binding Path="SubTotal"/>
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+                    </Grid>
+                   
+                    <Button Clicked="OpenBasketView"  BackgroundColor="#ffffff" BorderColor="#000000" BorderWidth="1" WidthRequest="46" HeightRequest="46" CornerRadius="23" Text="{Binding BasketItemsCount}" FontSize="20" HorizontalOptions="End"/>
+                </StackLayout>
+            </Grid>
+            <BoxView Grid.Row="1" BackgroundColor="#000000" HeightRequest="2" Margin="30,0"  IsVisible="{Binding IsContentVisible}"/>
+            <ScrollView Grid.Row="2">
+                <StackLayout BindableLayout.ItemsSource="{Binding HealthPlanCollection}" Padding="30,0" IsVisible="{Binding IsContentVisible}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Spacing="10">
+                                <Grid Padding="0,5">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ToggleCommand}" NumberOfTapsRequired="1"/>
+                                    </Grid.GestureRecognizers>
+                                    <Label Text="{Binding ProgramName}" TextType="Html" VerticalTextAlignment="Center" FontSize="24" Style="{StaticResource ContentTitle}"/>
+                                    <Image Source="icon_down_arrow" IsVisible="{Binding IsSelected,Converter={StaticResource InverseConverter}}" HorizontalOptions="End" VerticalOptions="Center" WidthRequest="36" HeightRequest="36"/>
+                                    <Image Source="icon_up_arrow" IsVisible="{Binding IsSelected}" HorizontalOptions="End" VerticalOptions="Center" WidthRequest="36" HeightRequest="36"/>
+                                </Grid>
+                                <StackLayout BindableLayout.ItemsSource="{Binding ProductWithLevelTypeList}" IsVisible="{Binding IsSelected,Mode=TwoWay}" Padding="0,20">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout Spacing="10">
+                                                <StackLayout>
+                                                    <Grid ColumnDefinitions="*,*">
+                                                        <Label Text="{Binding Classification}" VerticalTextAlignment="Center" FontSize="18" Style="{StaticResource ContentTitle}"/>
+                                                        <Label Grid.Column="1" Opacity="0.5" Text="{Binding ProgramName}" TextType="Html" VerticalTextAlignment="Center" HorizontalTextAlignment="End" FontSize="18" Style="{StaticResource ContentTitle}"/>
+                                                    </Grid>
+                                                    <BoxView BackgroundColor="Gray" HeightRequest="1"/>
+                                                </StackLayout>
+                                                <ScrollView Orientation="Horizontal">
+                                                    <StackLayout BindableLayout.ItemsSource="{Binding Products}" VerticalOptions="Center" Orientation="Horizontal" Spacing="30" Padding="0,30">
+                                                        <BindableLayout.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <Grid RowDefinitions="150,Auto,Auto" ColumnDefinitions="200" RowSpacing="20">
+                                                                    <Image Source="{Binding ImageUrl}"/>
+                                                                    <StackLayout Grid.Row="1">
+                                                                        <Label Text="{Binding Product.Name}" TextType="Html" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" Style="{StaticResource ContentTitle}" FontSize="16"/>
+                                                                        <Label Text="{Binding Price}" LineBreakMode="WordWrap" HorizontalTextAlignment="Start" Style="{StaticResource ContentTitle}" FontSize="16"/>
+                                                                        
+                                                                    </StackLayout>
+                                                                    <StackLayout Grid.Row="2" Spacing="10">
+                                                                        <Grid RowDefinitions="46" IsVisible="{Binding ShouldShowVariant}">
+                                                                            <Frame Padding="10,5" BorderColor="#000000" CornerRadius="0" HasShadow="False">
+                                                                                <Grid ColumnDefinitions="2*,Auto">
+                                                                                    <Picker x:Name="VariantsPicker" FontSize="16" ItemsSource="{Binding VariantsList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedVariant}" >
+
+                                                                                    </Picker>
+                                                                                    <!--<views:BindablePicker ItemsSource="{Binding VariantsList}" Title="Type" SelectedItem="{Binding SelectedVariant}" ItemDisplayBinding="{Binding Name}"/>-->
+
+                                                                                    <Image Grid.Column="1" Source="icon_down_arrow" WidthRequest="30" HeightRequest="30" HorizontalOptions="End"/>
+                                                                                </Grid>
+                                                                            </Frame>
+                                                                        </Grid>
+                                                                        <Grid RowDefinitions="46" IsVisible="{Binding ShouldShowSubVariant,Mode=TwoWay}">
+                                                                            <Frame Padding="10,5" BorderColor="#000000" CornerRadius="0" HasShadow="False">
+                                                                                <Grid ColumnDefinitions="2*,Auto">
+                                                                                    <Picker x:Name="SubVariantsPicker" FontSize="16" ItemsSource="{Binding PrescribingOptions}" ItemDisplayBinding="{Binding Title}" SelectedItem="{Binding SelectedOption}" />
+                                                                                    <Image Grid.Column="1" Source="icon_down_arrow" WidthRequest="30" HeightRequest="30" HorizontalOptions="End"/>
+                                                                                </Grid>
+                                                                            </Frame>
+                                                                        </Grid>
+                                                                        <Button Background="#000000" Text="Purchase today" Command="{Binding PurchaseCommand}" CommandParameter="{Binding .}" TextTransform="None" HeightRequest="46" FontSize="16" FontFamily="RegularFont" TextColor="#ffffff"/>
+                                                                    </StackLayout>
+                                                                </Grid>
+                                                            </DataTemplate>
+                                                        </BindableLayout.ItemTemplate>
+                                                    </StackLayout>
+                                                </ScrollView>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+                                <BoxView BackgroundColor="#000000" HeightRequest="1"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+            <ContentView Grid.Row="0" Grid.RowSpan="3" x:Name="BasketView">
+                <Grid ColumnDefinitions="*,500">
+                    <Grid/>
+                    <Frame Grid.Column="1" Padding="0" CornerRadius="0">
+                        <Grid RowDefinitions="Auto,*,46" Padding="20">
+                            <Grid ColumnDefinitions="*,2*" Padding="0,20">
+                                <Button BackgroundColor="#ffffff" BorderColor="#000000" BorderWidth="1" WidthRequest="46" HeightRequest="46" CornerRadius="23" Text="X" FontSize="20" VerticalOptions="Center" HorizontalOptions="Start" Clicked="CloseBasketView"/>
+                                <StackLayout Grid.Column="1" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="End" Spacing="20">
+                                    <Label VerticalTextAlignment="Center" HorizontalTextAlignment="End" FontSize="18" Style="{StaticResource ContentTitle}">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="Sub Total : {0}">
+                                                <Binding Path="SubTotal"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                    <Button BackgroundColor="#ffffff" BorderColor="#000000" BorderWidth="1" WidthRequest="46" HeightRequest="46" CornerRadius="23" Text="{Binding BasketItemsCount}" FontSize="18" HorizontalOptions="End" VerticalOptions="Center"/>
+                                </StackLayout>
+                            </Grid>
+                            <Grid Grid.Row="1" IsVisible="{Binding ShouldDisplayCollection,Converter={StaticResource InverseConverter}}">
+                                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150">
+                                    <Label Grid.Row="0" Opacity="0.5" Text="Empty Basket" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontSize="20" Style="{StaticResource ContentTitle}"/>
+                                    <Label Grid.Row="0" Opacity="0.5" Text="There are no items to display right now" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontSize="16" Style="{StaticResource ContentTitle}"/>
+                                </StackLayout>
+                            </Grid>
+                            <ScrollView Grid.Row="1">
+                                <StackLayout BindableLayout.ItemsSource="{Binding BasketItemsCollection}" Padding="0,20" IsVisible="{Binding ShouldDisplayCollection}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <SwipeView BackgroundColor="Transparent">
+                                                <SwipeView.RightItems>
+                                                    <SwipeItems>
+                                                        <SwipeItemView>
+                                                            <Grid RowDefinitions="Auto">
+                                                                <Button CornerRadius="0" Margin="10,5" TextTransform="None" FontSize="15" VerticalOptions="Center" Text="Remove" BackgroundColor="#000000" TextColor="#ffffff" Command="{Binding RemoveCommand}" CommandParameter="{Binding .}"/>
+                                                            </Grid>
+                                                        </SwipeItemView>
+                                                    </SwipeItems>
+                                                </SwipeView.RightItems>
+                                                <Grid RowDefinitions="Auto,Auto,1">
+                                                    <Grid.GestureRecognizers>
+                                                        <SwipeGestureRecognizer Direction="Right" Command="{Binding LeftSwipedCommand}"/>
+                                                    </Grid.GestureRecognizers>
+                                                    <Label Grid.Row="0" Opacity="0.5" Text="{Binding ProgramName}" TextType="Html" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontSize="14" Style="{StaticResource ContentTitle}"/>
+                                                    <Grid Grid.Row="1" ColumnDefinitions="2*,*">
+                                                        <Label Grid.Column="0" Text="{Binding ProductName}" VerticalTextAlignment="Center" FontSize="16" Style="{StaticResource ContentTitle}"/>
+                                                        <Label Grid.Column="1" Text="{Binding Price}" VerticalTextAlignment="Center" HorizontalTextAlignment="End" FontSize="16" Style="{StaticResource ContentTitle}"/>
+
+                                                    </Grid>
+                                                    <BoxView Grid.Row="2" HeightRequest="1" BackgroundColor="#000000"/>
+                                                </Grid>
+                                            </SwipeView>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+                            </ScrollView>
+                            <Frame Grid.Row="2" Background="#000000" Padding="0" IsVisible="{Binding BasketItemsCount,Converter={StaticResource IntToBoolConverter}}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ContinueCommand}"/>
+                                </Frame.GestureRecognizers>
+                                <Frame.Content>
+                                    <Grid>
+                                        <Label Text="Confirm and Continue" TextColor="#ffffff" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="20" Style="{StaticResource ContentTitle}"/>
+                                    </Grid>
+                                </Frame.Content>
+                            </Frame>
+                            <!--<Button Grid.Row="2" FontSize="18" BackgroundColor="#000000" TextColor="#ffffff" Text="Confirm and Continue" TextTransform="None"  Margin="20,5" VerticalOptions="FillAndExpand"/>-->
+                        </Grid>
+                    </Frame>
+                  
+                </Grid>
+            </ContentView>
+        </Grid>
+    </ContentPage.Content>
+</controls:AnimationPage>

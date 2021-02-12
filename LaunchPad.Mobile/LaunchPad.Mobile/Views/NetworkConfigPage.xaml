@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:AnimationPage xmlns:base="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                    xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels" 
+                    xmlns:customcontrols="clr-namespace:LaunchPad.Mobile.CustomControls"
+                    x:Class="LaunchPad.Mobile.Views.NetworkConfigPage"
+                    Background="#000000"
+                    NavigationPage.HasNavigationBar="False">
+    <base:AnimationPage.PageAnimation>
+        <base:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </base:AnimationPage.PageAnimation>
+    <ContentPage.BindingContext>
+        <viewmodels:NetworkConfigPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="Center" RowDefinitions="56,*" Padding="20">
+            <Label Text="Please select your secure wifi network" TextColor="#fff" FontSize="24" Style="{StaticResource TabTitleLabelStyle}" VerticalOptions="Center"/>
+            <ScrollView Grid.Row="1">
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Padding="20,40" BindableLayout.ItemsSource="{Binding WifiList,Mode=TwoWay}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowDefinitions="30,1" HorizontalOptions="Center" WidthRequest="400">
+                                <Grid ColumnDefinitions="2*,*">
+                                    <Label Text="{Binding .}" TextColor="#fff"  Style="{StaticResource ContentTitle}" FontSize="20" VerticalOptions="Center"/>
+                                    <Image Grid.Column="1" Source="icon_wifi" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" HorizontalOptions="End"/>
+                                </Grid>
+                                
+                                <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="#fff"/>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</base:AnimationPage>

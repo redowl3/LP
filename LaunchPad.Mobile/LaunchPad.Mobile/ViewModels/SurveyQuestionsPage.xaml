@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+            x:Class="LaunchPad.Mobile.ViewModels.SurveyQuestionsPage"
+            NavigationPage.HasBackButton="False"
+            >
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV2/>
+    </NavigationPage.TitleView>
+    <!--Pages can be added as references or inline-->
+    <ContentPage>
+        <NavigationPage.TitleView>
+            <Button CornerRadius="0" BackgroundColor="Transparent" Text="COncerns And Skin Care" FontSize="22" TextTransform="None" Command="{Binding SelectedCommand}" CommandParameter="{Binding .}" FontFamily="RegularFont"/>
+        </NavigationPage.TitleView>
+    </ContentPage> <ContentPage>
+        <NavigationPage.TitleView>
+            <Button CornerRadius="0" BackgroundColor="Transparent" Text="COncerns And Skin Care" FontSize="22" TextTransform="None" Command="{Binding SelectedCommand}" CommandParameter="{Binding .}" FontFamily="RegularFont"/>
+        </NavigationPage.TitleView>
+    </ContentPage> <ContentPage>
+        <NavigationPage.TitleView>
+            <Button CornerRadius="0" BackgroundColor="Transparent" Text="COncerns And Skin Care" FontSize="22" TextTransform="None" Command="{Binding SelectedCommand}" CommandParameter="{Binding .}" FontFamily="RegularFont"/>
+        </NavigationPage.TitleView>
+    </ContentPage>
+</TabbedPage>

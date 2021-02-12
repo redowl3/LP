@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                        xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+                        xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels"
+                        x:Class="LaunchPad.Mobile.Views.SalonClientsPage"
+                        NavigationPage.HasBackButton="False"
+                        BackgroundColor="#fff">
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV1/>
+    </NavigationPage.TitleView>
+    <ContentPage.BindingContext>
+        <viewmodels:SalonClientsPageViewModel/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="40" Padding="20,40">
+        <Grid Grid.Row="0" RowDefinitions="56" ColumnDefinitions="*,*,*">
+            <Frame Grid.Column="0" BackgroundColor="Transparent" Padding="0" HasShadow="False" CornerRadius="0">
+                <StackLayout Orientation="Horizontal">
+                    <ImageButton Source="icon_sort" WidthRequest="40" HeightRequest="40" BackgroundColor="Transparent" IsVisible="{Binding IsAscToDesc}" Command="{Binding AscToDescCommand}"/>
+                    <ImageButton Source="icon_sort_desc_asc" WidthRequest="40" HeightRequest="40" BackgroundColor="Transparent" IsVisible="{Binding IsAscToDesc,Converter={StaticResource InverseConverter}}" Command="{Binding DescToAscCommand}"/>
+                    <Label Text="Surname" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                </StackLayout>
+            </Frame>
+            <Frame Grid.Column="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                <Grid>
+                    <Entry Text="{Binding SearchText}" ClearButtonVisibility="WhileEditing" BackgroundColor="#f2f2f2"/>
+                    <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                </Grid>
+            </Frame>
+            <Frame Grid.Column="2" BackgroundColor="Transparent" Padding="0" HasShadow="False" CornerRadius="0">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                    <Label Text="New Client" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                    <ImageButton Source="icon_plus_circular" BackgroundColor="Transparent" Command="{Binding NewClientCommand}"/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+        <Grid Grid.Row="1" RowDefinitions="56,1">
+            <StackLayout BindableLayout.ItemsSource="{Binding AlphabetsCollection}" Orientation="Horizontal" HorizontalOptions="Center">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Button Text="{Binding Alphabet}" IsVisible="{Binding IsSelected}"  Command="{Binding RemoveSelectionCommand}" VerticalOptions="Center" WidthRequest="40" HeightRequest="40" CornerRadius="20" BorderColor="#000" BorderWidth="2" BackgroundColor="#fff" TextColor="#000"/>
+                            <Button Text="{Binding Alphabet}" IsVisible="{Binding IsSelected,Converter={StaticResource InverseConverter}}" Command="{Binding SelectCommand}" CommandParameter="{Binding Alphabet}" VerticalOptions="Center" WidthRequest="40" HeightRequest="40" CornerRadius="20" BorderColor="Transparent" BorderWidth="2" BackgroundColor="Transparent" TextColor="#000"/>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <BoxView Grid.Row="1" BackgroundColor="#000" HeightRequest="1"/>
+        </Grid>
+
+        <Grid Grid.Row="2" ColumnDefinitions="*,*" ColumnSpacing="20" RowDefinitions="Auto" HorizontalOptions="Center">
+            <ScrollView>
+                <StackLayout BindableLayout.ItemsSource="{Binding ConsumerCollection,Mode=TwoWay}" Spacing="40">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="item_tapped" CommandParameter="{Binding .}"/>
+                                </Grid.GestureRecognizers>
+                                <customlayouts:ConsumerLayoutView/>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+            <ScrollView Grid.Column="1">
+                <StackLayout BindableLayout.ItemsSource="{Binding RecentConsumerCollection,Mode=TwoWay}" Spacing="40">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="item_tapped" CommandParameter="{Binding Consumer}"/>
+                                </Grid.GestureRecognizers>
+                                <customlayouts:RecentConsumerLayoutView/>
+                            </Grid>
+
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</controls:AnimationPage>

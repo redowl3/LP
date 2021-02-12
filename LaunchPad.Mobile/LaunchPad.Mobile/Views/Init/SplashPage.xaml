@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage  xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                         xmlns="http://xamarin.com/schemas/2014/forms"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                         xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels" xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                         x:Class="LaunchPad.Mobile.Views.SplashPage"
+                         Background="#000000">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromLeft" />
+    </controls:AnimationPage.PageAnimation>
+    <controls:AnimationPage.BindingContext>
+        <viewmodels:SplashPageViewModel/>
+    </controls:AnimationPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" Padding="20,40">
+            <forms:CachedImage Source="splash_image" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="300" HeightRequest="300"/>
+            <ProgressBar x:Name="ProgressBar" BackgroundColor="Gray" IsVisible="{Binding ProgressBarVisible}" ProgressColor="#ffffff" Progress="{Binding Progress, Mode=TwoWay}" HeightRequest="2" HorizontalOptions="Center" WidthRequest="300"/>
+        </StackLayout>
+    </ContentPage.Content>
+</controls:AnimationPage>

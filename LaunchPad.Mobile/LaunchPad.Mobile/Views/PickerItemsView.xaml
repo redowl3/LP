@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LaunchPad.Mobile.Views.PickerItemsView">
+    <ContentPage.Content>
+        <Frame x:Name="UserListDropdownContainer" Grid.Row="0" Grid.RowSpan="4" Margin="0,105,0,0" IsVisible="False" Padding="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="46"/>
+                    <RowDefinition Height="400"/>
+                </Grid.RowDefinitions>
+                <Grid BackgroundColor="#000" Padding="10,0">
+                    <Label Text="Select Variant" TextColor="#fff"  Style="{StaticResource ContentTitle}" FontSize="18"/>
+                    <Button HorizontalOptions="End" Text="X" TextColor="#fff" BackgroundColor="Transparent" Padding="0" VerticalOptions="Center" Clicked="CloseThis"/>
+                </Grid>
+                <StackLayout BindableLayout.ItemsSource="{Binding VariantsList}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowDefinitions="30,1">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="itemselected" CommandParameter="{Binding .}"/>
+                                </Grid.GestureRecognizers>
+                                <Label Grid.RowSpan="2" Text="{Binding Name}" TextColor="#000"  Style="{StaticResource ContentTitle}" FontSize="18"/>
+                                <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="#000"/>
+                            </Grid>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </Grid>
+            
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

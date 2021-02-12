@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             x:Class="LaunchPad.Mobile.CustomLayouts.DeclarationView"
+             VerticalOptions="FillAndExpand">
+  <ContentView.Content>
+        <Grid RowDefinitions="*,56" VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="40" Padding="20,40">
+                <Label Text="Legal" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                <Label Text="Declaration" FontSize="32" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                <Label x:Name="DeclarationTextLabel" TextType="Html" FontSize="20" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                <input:RadioButton x:Name="CheckButton" Checked="Check_Checked" CircleColor="Black" Color="#000" Text="I declare all information provided by me to be truthful and accurate to the best of my knowledge" TextColor="#000" FontFamily="RegularFont"/>
+            </StackLayout>
+            <Grid Grid.Row="1" RowDefinitions="46">
+                <Button x:Name="SaveButton" IsEnabled="False" BackgroundColor="WhiteSmoke" TextColor="#fff" Padding="0" Text="Save &amp; Continue" TextTransform="None" FontSize="20" HorizontalOptions="Center" WidthRequest="400"/>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

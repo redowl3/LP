@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:AnimationPage xmlns:base="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                    xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+                    x:Class="LaunchPad.Mobile.Views.SalonProductsPage"
+                    NavigationPage.HasBackButton="False">
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayout/>
+    </NavigationPage.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="icon_list" Command="{Binding ViewPlanCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid BackgroundColor="#fff" RowSpacing="0" IsVisible="{Binding IsContentLoading,Converter={StaticResource InverseConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="56"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame HasShadow="False"/>
+            <FlexLayout BindableLayout.ItemsSource="{Binding ProductCategoryList}" AlignContent="SpaceEvenly" HorizontalOptions="FillAndExpand" Margin="2,0">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid FlexLayout.Basis="33.33%"  ColumnDefinitions="*,1" ColumnSpacing="0">
+                        <Grid x:Name="FeedTab" HorizontalOptions="FillAndExpand">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCommand}" CommandParameter="{Binding Name}"/>
+                            </Grid.GestureRecognizers>
+                            <Grid.Triggers>
+                                <MultiTrigger TargetType="Grid">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Path=IsSelected}" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="BackgroundColor" Value="#ffffff"/>
+                                </MultiTrigger>
+                                <MultiTrigger TargetType="Grid">
+                                    <MultiTrigger.Conditions>
+                                        <BindingCondition Binding="{Binding Path=IsSelected}" Value="False"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="BackgroundColor" Value="#f2f2f2"/>
+                                </MultiTrigger>
+                            </Grid.Triggers>
+                            <StackLayout Grid.Column="0" VerticalOptions="Center" Spacing="5">
+                                <Label Text="{Binding Name}" Style="{StaticResource TabTitleLabelStyle}"/>
+                                <Label Style="{StaticResource TabSubTitleLabelStyle}" Text="{Binding Subtitle}" TextType="Html"/>
+                            </StackLayout>
+                        </Grid>
+                            <BoxView Grid.Column="1" BackgroundColor="#ffffff"/>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+            <!--<Grid ColumnDefinitions="*,1,*,1,*" ColumnSpacing="0">
+                <Grid x:Name="FeedTab"  BackgroundColor="White">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Feed_tapped" NumberOfTapsRequired="1"/>
+                    </Grid.GestureRecognizers>
+                    <StackLayout Grid.Column="0" VerticalOptions="Center" Spacing="5">
+                        <Label Text="Feed" Style="{StaticResource TabTitleLabelStyle}"/>
+                        <Label Style="{StaticResource TabSubTitleLabelStyle}" TextType="Html">
+                            <![CDATA[
+                            Advanced Nutrition Programme &trade;]]>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+                <BoxView Grid.Column="1" BackgroundColor="#ffffff"/>
+                <Grid x:Name="FortifyTab" Grid.Column="2" BackgroundColor="#c7c9cb">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="fortify_tapped" NumberOfTapsRequired="1"/>
+                    </Grid.GestureRecognizers>
+                    <StackLayout VerticalOptions="Center" Spacing="5">
+                        <Label Text="Fortify" Style="{StaticResource TabTitleLabelStyle}"/>
+                        <Label Style="{StaticResource TabSubTitleLabelStyle}" TextType="Html">
+                            <![CDATA[
+                            Environ &trade;]]>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+                <BoxView Grid.Column="3" BackgroundColor="#ffffff"/>
+                <Grid x:Name="FinishTab" Grid.Column="4" BackgroundColor="#c7c9cb">
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="finish_tapped" NumberOfTapsRequired="1"/>
+                    </Grid.GestureRecognizers>
+                    <StackLayout VerticalOptions="Center" Spacing="5">
+                        <Label Text="Finish" Style="{StaticResource TabTitleLabelStyle}"/>
+                        <Label Style="{StaticResource TabSubTitleLabelStyle}" TextType="Html">
+                            <![CDATA[
+    Jane Iredale &trade;]]>
+                        </Label>
+                    </StackLayout>
+                </Grid>
+            </Grid>-->
+            <Grid Grid.Row="1" Padding="10">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="End" Spacing="5">
+                    <Label Grid.Column="0" Grid.ColumnSpan="2" Text="Refine" VerticalTextAlignment="Center" Style="{StaticResource ContentAdditionalInfoTitle}" FontSize="16"/>
+                    <ImageButton Source="icon_filter" BackgroundColor="Transparent" Command="{Binding FilterOptionCommand}" WidthRequest="36" HeightRequest="36" Margin="5"/>
+                </StackLayout>
+
+            </Grid>
+            <AbsoluteLayout Grid.Row="2">
+                <Grid AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                  AbsoluteLayout.LayoutFlags= "All"
+                  CompressedLayout.IsHeadless="True">
+                    <ContentView x:Name="FeedContentView" IsVisible="{Binding FeedContentVisible}">
+                        <StackLayout>
+                            <Label IsVisible="{Binding NoFeedsFound}" Text="Empty" HorizontalOptions="Center" Style="{StaticResource TabTitleLabelStyle}"/>
+                            <Label IsVisible="{Binding NoFeedsFound}" Text="There are no items to display right now" WidthRequest="220" LineHeight="1.5" HorizontalTextAlignment="Center" HorizontalOptions="Center" Style="{StaticResource ContentTitle}"/>
+                            <ScrollView>
+                                <Grid ColumnDefinitions="*,*" IsVisible="{Binding NoFeedsFound,Converter={StaticResource InverseConverter}}">
+                                    <StackLayout Grid.Column="0" BindableLayout.ItemsSource="{Binding FeedsEvenProducts}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="10">
+                                                    <customlayouts:ProductLayoutView/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1" BindableLayout.ItemsSource="{Binding FeedsOddsProducts}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="10">
+                                                    <customlayouts:ProductLayoutView/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Grid>
+                            </ScrollView>
+                        </StackLayout>
+
+
+                    </ContentView>
+                    <ContentView x:Name="FortifyContentView" IsVisible="{Binding FortifyContentVisible}">
+                        <StackLayout>
+                            <Label Text="Empty" HorizontalOptions="Center" IsVisible="{Binding NoFortifyFound}" Style="{StaticResource TabTitleLabelStyle}"/>
+                            <Label IsVisible="{Binding NoFortifyFound}" Text="There are no items to display right now" WidthRequest="220" LineHeight="1.5" HorizontalTextAlignment="Center" HorizontalOptions="Center" Style="{StaticResource ContentAdditionalInfoTitle}"/>
+                            <ScrollView>
+                                <Grid ColumnDefinitions="*,*" IsVisible="{Binding NoFortifyFound,Converter={StaticResource InverseConverter}}">
+                                    <StackLayout Grid.Column="0" BindableLayout.ItemsSource="{Binding FortifyEvenProducts}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="10">
+                                                    <customlayouts:ProductLayoutView/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1" BindableLayout.ItemsSource="{Binding FortifyOddProducts}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="10">
+                                                    <customlayouts:ProductLayoutView/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Grid>
+                            </ScrollView>
+                        </StackLayout>
+                    </ContentView>
+                    <ContentView x:Name="FinishContentView" IsVisible="{Binding FinishContentVisible}">
+                        <StackLayout>
+                            <Label IsVisible="{Binding NoFinishFound}" Text="Empty" HorizontalOptions="Center" Style="{StaticResource TabTitleLabelStyle}"/>
+                            <Label IsVisible="{Binding NoFinishFound}" Text="There are no items to display right now" WidthRequest="220" LineHeight="1.5" HorizontalTextAlignment="Center" HorizontalOptions="Center" Style="{StaticResource ContentAdditionalInfoTitle}"/>
+                            <ScrollView>
+                                <Grid ColumnDefinitions="*,*" IsVisible="{Binding NoFinishFound,Converter={StaticResource InverseConverter}}">
+                                    <StackLayout Grid.Column="0" BindableLayout.ItemsSource="{Binding FinishEvenProducts,Mode=TwoWay}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="10">
+                                                    <customlayouts:ProductLayoutView/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                    <StackLayout Grid.Column="1" BindableLayout.ItemsSource="{Binding FinishOddProducts,Mode=TwoWay}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Grid Margin="10">
+                                                    <customlayouts:ProductLayoutView/>
+                                                </Grid>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </StackLayout>
+                                </Grid>
+                            </ScrollView>
+                        </StackLayout>
+                    </ContentView>
+                    <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                 AbsoluteLayout.LayoutFlags= "All"
+                                 IsVisible="{Binding IsLoading}"
+                                 BackgroundColor="#ffffff" >
+                        <ActivityIndicator x:Name="actWebRequest"
+                                       Color="#000000"
+                 IsVisible="{Binding IsLoading}"
+                 IsRunning="{Binding IsLoading}"
+                 HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </Grid>
+            </AbsoluteLayout>
+        </Grid>
+    </ContentPage.Content>
+</base:AnimationPage>

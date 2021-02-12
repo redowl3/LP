@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<base:AnimationPage xmlns:base="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                    xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels" 
+                    xmlns:customcontrols="clr-namespace:LaunchPad.Mobile.CustomControls" xmlns:local="clr-namespace:LaunchPad.Mobile.CustomTriggers"
+                    x:Class="LaunchPad.Mobile.Views.SignInPage"
+                    Background="#000000"
+                    NavigationPage.HasNavigationBar="False">
+    <base:AnimationPage.PageAnimation>
+        <base:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </base:AnimationPage.PageAnimation>
+    <ContentPage.BindingContext>
+        <viewmodels:SignInPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid HorizontalOptions="Center" RowDefinitions="56,*" Padding="20,40" x:Name="CenteredStackLayout">
+            <Label Text="Welcome, please login to continue" TextColor="#fff" FontSize="28" Style="{StaticResource TabTitleLabelStyle}" VerticalOptions="Center"/>
+            <ScrollView Grid.Row="1">
+                <Grid Grid.Row="1" RowDefinitions="Auto,Auto,Auto,Auto" VerticalOptions="Center" RowSpacing="30" WidthRequest="500">
+                    <Grid RowDefinitions="Auto,56" RowSpacing="20">
+                        <Label Text="User" TextColor="#fff"  Style="{StaticResource ContentTitle}" FontSize="22"/>
+                        <!--<customcontrols:CustomEntry Grid.Row="1" Text="{Binding Username}" Focused="CustomEntry_Focused" TextColor="#fff" BorderColor="#fff" FontSize="20" BorderWidth="3" HeightRequest="56" IsReadOnly="True"/>-->
+                        <Frame BorderColor="#fff" Grid.Row="1" Padding="0" BackgroundColor="Transparent">
+                            <Grid Padding="15,10">
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="searchuserlist"/>
+                                </Grid.GestureRecognizers>
+                                <Label Text="{Binding Username}" TextColor="#fff"  Style="{StaticResource ContentTitle}" FontSize="18" VerticalTextAlignment="Center"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid Grid.Row="1" RowDefinitions="Auto,56" RowSpacing="20">
+                        <Label Text="PIN" TextColor="#fff"  Style="{StaticResource ContentTitle}" FontSize="22"/>
+                        <Grid Grid.Row="1">
+                            <customcontrols:CustomEntry x:Name="PinEntry" Text="{Binding Password}" TextColor="#fff" IsPassword="{Binding Source={x:Reference ShowPasswordActualTrigger}, Path=HidePassword}" FontSize="20" BorderColor="#fff" BorderWidth="3" HeightRequest="56"/>
+                            <!--<Entry Placeholder="Password"
+                IsPassword="{Binding Source={x:Reference ShowPasswordActualTrigger}, Path=HidePassword}"/>-->
+
+                            <ImageButton VerticalOptions="Center"
+                                         BackgroundColor="Transparent"
+                                         WidthRequest="36"
+                                         HeightRequest="36"
+                      Margin="0,0,10,0"
+                     HorizontalOptions="End"
+                     Source="ic_eye_hide">
+                                <ImageButton.Triggers>
+                                    <EventTrigger Event="Clicked">
+                                        <local:ShowPasswordTriggerAction ShowIcon="ic_eye"
+                                                                    HideIcon="ic_eye_hide"
+                                                                    x:Name="ShowPasswordActualTrigger"/>
+                                    </EventTrigger>
+                                </ImageButton.Triggers>
+                            </ImageButton>
+                        </Grid>
+
+                    </Grid>
+                    <Button Grid.Row="3" Background="#fff" Text="Continue" Command="{Binding ContinueCommand}" TextTransform="None" HeightRequest="56" FontSize="22" FontFamily="RegularFont" TextColor="#000"/>
+                    <Frame x:Name="UserListDropdownContainer" Grid.Row="0" Grid.RowSpan="4" Margin="0,105,0,0" IsVisible="False">
+                        <StackLayout BindableLayout.ItemsSource="{Binding Therapists}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid RowDefinitions="30,1">
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="itemselected" CommandParameter="{Binding .}"/>
+                                        </Grid.GestureRecognizers>
+                                        <Label Grid.RowSpan="2" Text="{Binding Therapist.Username}" TextColor="#000"  Style="{StaticResource ContentTitle}" FontSize="18"/>
+                                        <BoxView Grid.Row="1" HeightRequest="1" BackgroundColor="#000"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</base:AnimationPage>

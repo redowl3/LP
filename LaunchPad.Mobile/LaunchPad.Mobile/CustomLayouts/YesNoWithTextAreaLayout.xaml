@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="LaunchPad.Mobile.CustomLayouts.YesNoWithTextAreaLayout">
+  <ContentView.Content>
+        <Grid RowSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid RowDefinitions="46" IsVisible="{Binding IsYesNo}">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button x:Name="YesButton" Text="Yes" TextTransform="None" WidthRequest="300" FontSize="18" CornerRadius="23" BorderColor="#000" BorderWidth="2" BackgroundColor="#fff"/>
+                    <Button x:Name="NoButton" Text="No" TextTransform="None" WidthRequest="300" FontSize="18" CornerRadius="23" BorderColor="#000" BorderWidth="2" BackgroundColor="#fff"/>
+                </StackLayout>
+            </Grid>
+          
+            <Frame Grid.Row="1" x:Name="TextAreaContainer" Padding="0" BorderColor="#000" HasShadow="False" HorizontalOptions="Center" WidthRequest="600" IsVisible="{Binding IsTextArea}">
+                <Grid RowDefinitions="100">
+                    <Editor Placeholder="Text area" HeightRequest="100"/>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

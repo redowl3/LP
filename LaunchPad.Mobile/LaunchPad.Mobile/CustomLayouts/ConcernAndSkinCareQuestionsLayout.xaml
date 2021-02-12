@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+             x:Class="LaunchPad.Mobile.CustomLayouts.ConcernAndSkinCareQuestionsLayout">
+    <ContentView.Content>
+        <StackLayout Spacing="0">
+            <Grid IsVisible="{Binding IsHtml}" HorizontalOptions="Center" WidthRequest="600">
+                <Label Text="{Binding FormQuestionData.QuestionText}" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+            </Grid>
+            <Frame CornerRadius="23" Padding="2" BorderColor="#000" HorizontalOptions="Center" IsVisible="{Binding IsDropdown}" Margin="0,5">
+                <Grid RowDefinitions="46,Auto" RowSpacing="0">
+                    <Grid Padding="20,0">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ToggleContainer" NumberOfTapsRequired="1"/>
+                        </Grid.GestureRecognizers>
+                        <Label Text="{Binding FormQuestionData.QuestionText}" VerticalTextAlignment="Center" TextType="Html" Style="{StaticResource ContentTitle}"/>
+                        <Image Source="icon_down_arrow" WidthRequest="30" HeightRequest="30" HorizontalOptions="End"/>
+                    </Grid>
+                    <StackLayout x:Name="OptionContainer" Grid.Row="1" BindableLayout.ItemsSource="{Binding FormQuestionData.Answers}" IsVisible="False">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid FlexLayout.Basis="33%" FlexLayout.AlignSelf="Start">
+                                    <Label Text="{Binding ResponseText}" FontSize="18" TextType="Html" Style="{StaticResource ContentTitle}"/>
+                                    <Image Source="icon_down_arrow" WidthRequest="30" HeightRequest="30" HorizontalOptions="End"/>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+            <customlayouts:YesNoWithTextAreaLayout  IsVisible="{Binding IsYesNoWithTextArea}" Padding="10,10"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

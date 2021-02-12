@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                        xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+                        xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels"
+                        x:Class="LaunchPad.Mobile.Views.ClientRegistrationPage"
+                        BackgroundColor="#ffffff"
+                        NavigationPage.HasBackButton="False">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV1/>
+    </NavigationPage.TitleView>
+    <ContentPage.BindingContext>
+        <viewmodels:ClientRegistrationPageViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <StackLayout>
+            <Grid x:Name="CenteredStackLayout" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="40" Padding="20,40" IsVisible="{Binding IsRegistrationCompleted,Converter={StaticResource InverseConverter}}">
+                <Grid Grid.Row="0" RowDefinitions="Auto" HorizontalOptions="Center">
+                    <Frame Grid.Column="0" BackgroundColor="Transparent" Padding="0" HasShadow="False" CornerRadius="0">
+                        <Grid>
+                            <Label Text="Your skin health journey is about to start" FontSize="36" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </Grid>
+                    </Frame>
+                </Grid>
+                <Grid Grid.Row="1" RowDefinitions="Auto" HorizontalOptions="Center">
+                    <Frame Grid.Row="0" Grid.Column="0" BackgroundColor="Transparent" Padding="0" HasShadow="False" CornerRadius="0">
+                        <Grid>
+                            <Label Text="To begin please complete your details below" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </Grid>
+                    </Frame>
+                </Grid>
+                <Grid Grid.Row="2" ColumnDefinitions="*,*,*,*" ColumnSpacing="30">
+                    <Grid RowDefinitions="56,56" Grid.Column="0">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="First Name" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                        
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="FirstnameEntry" Text="{Binding Firstname}" BackgroundColor="#f2f2f2"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid RowDefinitions="56,56" Grid.Column="1">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="Surname" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                       
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="LastnameEntry" Text="{Binding Lastname}" BackgroundColor="#f2f2f2"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid RowDefinitions="56,56" Grid.Column="2">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="Email" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+
+                        
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry  x:Name="EmailEntry" Text="{Binding Email}" BackgroundColor="#f2f2f2" Keyboard="Email"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid RowDefinitions="56,56" Grid.Column="3">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="Confirm Email" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                       
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="ConfirmEmailEntry" Text="{Binding ConfirmEmail}" BackgroundColor="#f2f2f2" Keyboard="Email"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Grid>
+
+                <Grid  Grid.Row="3" ColumnDefinitions="250,350,200,150" x:Name="MidDobContainerGrid" HorizontalOptions="Center">
+                    <Grid ColumnSpacing="20" HorizontalOptions="End" RowDefinitions="56,56" ColumnDefinitions="70,70,70">
+                        <StackLayout Grid.ColumnSpan="3" Orientation="Horizontal" Spacing="2">
+                            <Label Text="Date Of Birth"  FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                        
+                        <Frame Grid.Row="1" Grid.Column="0" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="DDEntry" Text="{Binding DD}" HorizontalTextAlignment="Center" BackgroundColor="#f2f2f2" MaxLength="2" Keyboard="Numeric"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                            </Grid>
+                        </Frame>
+                        <Frame Grid.Row="1" Grid.Column="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="MMEntry" Text="{Binding MM}" HorizontalTextAlignment="Center" BackgroundColor="#f2f2f2" MaxLength="2" Keyboard="Numeric"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                            </Grid>
+                        </Frame>
+                        <Frame Grid.Row="1" Grid.Column="2" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="YYEntry" Text="{Binding YY}" BackgroundColor="#f2f2f2" MaxLength="4" Keyboard="Numeric"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+
+                    <Grid Grid.Column="1" ColumnDefinitions="100,230" ColumnSpacing="20">
+                        <Grid Grid.Column="0" RowDefinitions="56,56">
+                            <StackLayout Orientation="Horizontal" Spacing="2">
+                                <Label Text="Phone" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            </StackLayout>
+                            
+                            <Frame Grid.Row="1" Padding="10,5" BorderColor="#000000" CornerRadius="0" HasShadow="False">
+                                <Grid ColumnDefinitions="2*,Auto">
+                                    <Picker FontSize="20" ItemsSource="{Binding IddCodes}" SelectedItem="{Binding SelectedIddCode}" />
+                                    <Image Grid.Column="1" Source="icon_down_arrow" WidthRequest="36" HeightRequest="36" HorizontalOptions="End"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+
+                        <Grid Grid.Column="1" RowDefinitions="56,56">
+                            <Label Text="( incluce area code if landline )" FontSize="16.5" VerticalTextAlignment="Center" TextColor="Gray" Style="{StaticResource ContentTitle}"/>
+                            <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                                <Grid>
+                                    <Entry x:Name="MobileEntry" Text="{Binding Mobile}" BackgroundColor="#f2f2f2" Keyboard="Telephone" MaxLength="16"/>
+                                    <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                    <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid Grid.Column="2" RowDefinitions="56,56" Margin="0,0,10,0">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="Postcode" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                        
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="PostcodeEntry" Text="{Binding PostCode}" BackgroundColor="#f2f2f2"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid Grid.Column="3" RowDefinitions="56,56" Margin="-10,0,0,0">
+                        <Label Text="" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        <Frame Grid.Row="1" Grid.Column="0" BackgroundColor="#000" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Label Text="Look up" FontSize="20" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="#ffff" Style="{StaticResource ContentTitle}"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="4" ColumnDefinitions="*,*,*" ColumnSpacing="40">
+                    <Grid RowDefinitions="56,56" Grid.Column="0">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="Address Line 1" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                        
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="AddressLine1Entry" Text="{Binding AddressLine1}" BackgroundColor="#f2f2f2"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid RowDefinitions="56,56" Grid.Column="1">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="Address Line 2" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                        
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="AddressLine2Entry" Text="{Binding AddressLine2}" BackgroundColor="#f2f2f2"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid RowDefinitions="56,56" Grid.Column="2">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="Address Line 3" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                        
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="AddressLine3Entry" Text="{Binding AddressLine3}" BackgroundColor="#f2f2f2"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="5" ColumnDefinitions="*,*,*" ColumnSpacing="40" Padding="120,0">
+                    <Grid RowDefinitions="56,56" Grid.Column="0">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                            <Label Text="Town/City" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                        
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="CityEntry" Text="{Binding City}" BackgroundColor="#f2f2f2"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid RowDefinitions="56,56" Grid.Column="1">
+                        <StackLayout Orientation="Horizontal" Spacing="2">
+                             <Label Text="County" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                            <Label Text="*" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </StackLayout>
+                       
+                        <Frame Grid.Row="1" BackgroundColor="#f2f2f2" Padding="0" HasShadow="False" CornerRadius="0">
+                            <Grid>
+                                <Entry x:Name="CountyEntry" Text="{Binding County}" BackgroundColor="#f2f2f2"/>
+                                <BoxView BackgroundColor="#000" HeightRequest="1" VerticalOptions="End"/>
+                                <Image Source="icon_tick" HorizontalOptions="End" IsVisible="False"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                    <Grid RowDefinitions="56,56" Grid.Column="2">
+                        <Label Text="Country/Region" FontSize="20" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        <Frame Grid.Row="1" Padding="10,5" BorderColor="#000000" CornerRadius="0" HasShadow="False">
+                            <Grid ColumnDefinitions="2*,Auto">
+                                <Picker x:Name="SubVariantsPicker" FontSize="20" ItemsSource="{Binding Countries}" SelectedItem="{Binding Country}" />
+                                <Image Grid.Column="1" Source="icon_down_arrow" WidthRequest="36" HeightRequest="36" HorizontalOptions="End"/>
+                            </Grid>
+                        </Frame>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="6" RowDefinitions="46,46" HorizontalOptions="Center" WidthRequest="400">
+                    <Button Grid.Row="1" BackgroundColor="#000" TextTransform="None"  TextColor="#fff" IsVisible="{Binding IsButtonEnabled}" BorderWidth="1" Text="Save &amp; Continue" FontSize="20" Command="{Binding AddClientCommand}"/>
+                    <Button Grid.Row="1" BackgroundColor="#ccc" TextTransform="None" TextColor="#fff" IsVisible="{Binding IsButtonEnabled,Converter={StaticResource InverseConverter}}" BorderWidth="1" Text="Save &amp; Continue" FontSize="20"/>
+                </Grid>
+            </Grid>
+            <customlayouts:TermsAndConditionView IsVisible="{Binding IsTerms}"/>
+            <customlayouts:DeclarationView IsVisible="{Binding IsDeclarations}"/>
+            <customlayouts:ConsentView IsVisible="{Binding IsConsents}"/>
+        </StackLayout>
+
+    </ScrollView>
+</controls:AnimationPage>

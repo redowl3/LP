@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LaunchPad.Mobile.CustomLayouts.RecentConsumerLayoutView">
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Text="{Binding LastLoginDateTime}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+            <Frame Grid.Row="1" BackgroundColor="#000"/>
+            <Grid Grid.Row="1" RowDefinitions="*,*,*" RowSpacing="0" BackgroundColor="#000" VerticalOptions="Center" Padding="10,10">
+                <Label Text="{Binding Consumer.Mobile}" HorizontalTextAlignment="End" VerticalTextAlignment="Center" TextColor="#fff" Style="{StaticResource ContentTitle}"/>
+                <Label Grid.Row="1" FontSize="22" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#fff" Style="{StaticResource ContentTitle}">
+                    <Label.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Consumer.Firstname"/>
+                            <Binding Path="Consumer.Lastname"/>
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+                <Label Grid.Row="2" Text="{Binding Consumer.Email}" HorizontalTextAlignment="End" VerticalTextAlignment="Center" TextColor="#fff" Style="{StaticResource ContentTitle}"/>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

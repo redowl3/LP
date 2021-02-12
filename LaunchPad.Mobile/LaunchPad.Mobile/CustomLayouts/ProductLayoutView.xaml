@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="LaunchPad.Mobile.CustomLayouts.ProductLayoutView">
+    <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid ColumnDefinitions="150,*" ColumnSpacing="10">
+                <Grid RowDefinitions="150" HeightRequest="150">
+                    <Image Source="{Binding ImageUrl}" WidthRequest="150" HeightRequest="150" HorizontalOptions="Center" VerticalOptions="Start"/>
+                </Grid>
+                <Grid Grid.Column="1" HorizontalOptions="FillAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="56"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout>
+                            <Label Text="{Binding Product.Name}" TextType="Html" HorizontalTextAlignment="Start" Style="{StaticResource ContentTitle}"/>
+                            <Label FontSize="14" Text="{Binding Product.Summary}" HorizontalTextAlignment="Start" Style="{StaticResource ContentDescription}"/>
+                        </StackLayout>
+                        <ImageButton IsVisible="{Binding IsProductAdded,Converter={StaticResource InverseConverter}}" BackgroundColor="Transparent" Command="{Binding AddProductToPlanCommand}" CommandParameter="{Binding .}" Grid.Column="1" Source="icon_doc" HorizontalOptions="End" VerticalOptions="Start" WidthRequest="46" HeightRequest="56" Margin="0,-5,0,0"/>
+                        <ImageButton IsVisible="{Binding IsProductAdded}" BackgroundColor="Transparent" Grid.Column="1" Source="icon_doc_selected" Command="{Binding RemoveProductFromPlanCommand}" CommandParameter="{Binding .}" HorizontalOptions="End" VerticalOptions="Start" WidthRequest="46" HeightRequest="40" Margin="0,5"/>
+                    </Grid>
+                    <StackLayout Grid.Row="1" BindableLayout.ItemsSource="{Binding Product.Properties}" Orientation="Horizontal" Spacing="20" VerticalOptions="End">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <Grid RowDefinitions="56" VerticalOptions="End" Padding="0,5">
+                                    <forms:CachedImage Source="{Binding ImageUrl}" WidthRequest="30" HeightRequest="30" VerticalOptions="End"/>
+                                </Grid>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </Grid>
+            </Grid>
+            <StackLayout Grid.Row="1" BindableLayout.ItemsSource="{Binding Product.SkinConcerns}" Orientation="Horizontal" Spacing="10">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <StackLayout Orientation="Horizontal" Spacing="2">
+                                <Image Source="icon_checkmark" WidthRequest="20" HeightRequest="20"/>
+                                <Label Text="{Binding .}" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Style="{StaticResource ContentProperty}"/>
+                            </StackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <StackLayout Grid.Row="2" VerticalOptions="End">
+                <FlexLayout BindableLayout.ItemsSource="{Binding AdditionalInformations}" AlignContent="SpaceEvenly" HorizontalOptions="Center">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <BoxView HeightRequest="2" VerticalOptions="End" BackgroundColor="Gray"/>
+                                <Grid ColumnDefinitions="*" Padding="0,10">
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ViewCommand}" Tapped="itemTapped" CommandParameter="{Binding .}" NumberOfTapsRequired="1"/>
+                                    </Grid.GestureRecognizers>
+                                    <Label Text="{Binding AdditionalInformation.Title}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Style="{StaticResource ContentAdditionalInfoTitle}"/>
+                                </Grid>
+                                <BoxView HeightRequest="2" VerticalOptions="End">
+                                    <BoxView.Triggers>
+                                        <MultiTrigger TargetType="BoxView">
+                                            <MultiTrigger.Conditions>
+                                                <BindingCondition Binding="{Binding IsSelected}" Value="True"/>                                                
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="BackgroundColor" Value="#ffffff"/>
+                                        </MultiTrigger>
+                                        <MultiTrigger TargetType="BoxView">
+                                            <MultiTrigger.Conditions>
+                                                <BindingCondition Binding="{Binding IsSelected}" Value="False"/>                                                
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="BackgroundColor" Value="Gray"/>
+                                        </MultiTrigger>
+                                    </BoxView.Triggers>
+                                </BoxView>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </FlexLayout>
+                <Grid x:Name="DetailStack" IsVisible="False">                  
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="DetailLabel" Style="{StaticResource ContentDescription}"/>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

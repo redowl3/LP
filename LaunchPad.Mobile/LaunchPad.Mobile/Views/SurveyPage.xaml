@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<controls:AnimationPage xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:controls="clr-namespace:FormsControls.Base;assembly=FormsControls.Base"
+                        xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts" 
+                        xmlns:viewmodels="clr-namespace:LaunchPad.Mobile.ViewModels"
+                        x:Class="LaunchPad.Mobile.Views.SurveyPage"
+                        NavigationPage.HasBackButton="False"
+                        BackgroundColor="#fff"
+                        x:Name="SurveyQuestionPage">
+    <controls:AnimationPage.PageAnimation>
+        <controls:PushPageAnimation Duration="Medium" Subtype="FromRight" />
+    </controls:AnimationPage.PageAnimation>
+    <NavigationPage.TitleView>
+        <customlayouts:TitleBarLayoutV2/>
+    </NavigationPage.TitleView>
+    <ContentPage.BindingContext>
+        <viewmodels:SurveyPageViewModel/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="75,*" HorizontalOptions="FillAndExpand">
+        <Grid RowDefinitions="70" ColumnDefinitions="*,*,*" ColumnSpacing="0">
+            <Grid RowDefinitions="60,10" Grid.Column="0">
+                <Button Padding="0" CornerRadius="0" BackgroundColor="Transparent" Text="Health Questions" FontSize="24" TextTransform="None" Clicked="HealthButtonClicked" CommandParameter="{Binding .}" FontFamily="RegularFont"/>
+                <BoxView Grid.Row="1" BackgroundColor="#c7c9cb" HeightRequest="10" x:Name="HealthSurveyBoxView"/>
+            </Grid>
+            <Grid RowDefinitions="60,10" Grid.Column="1">
+                <Button Padding="0" CornerRadius="0" BackgroundColor="Transparent" Text="Concerns + Skin Type" FontSize="24" TextTransform="None" Clicked="ConcernsButtonClicked" FontFamily="RegularFont"/>
+                <BoxView Grid.Row="1" BackgroundColor="#f4f4f5" HeightRequest="10" x:Name="ConcernSurveyBoxView"/>
+            </Grid>            
+            <Grid RowDefinitions="60,10" Grid.Column="2">
+                <Button Padding="0" CornerRadius="0" BackgroundColor="Transparent" Text="You + your Lifestyle" FontSize="24" TextTransform="None" Clicked="LifeStyleButtonClicked" CommandParameter="{Binding .}" FontFamily="RegularFont"/>
+                <BoxView Grid.Row="1" BackgroundColor="#f4f4f5" HeightRequest="10" x:Name="LifeStyleSurveyBoxView"/>
+            </Grid>
+        </Grid>
+        <StackLayout Grid.Row="1" x:Name="MainContainer" Padding="15,10" CompressedLayout.IsHeadless="True">
+            <customlayouts:ConcernsQuestionContainerLayout x:Name="ConcernPageSurveyContainer" IsVisible="False">
+                <!--<customlayouts:ConcernsQuestionContainerLayout.BindingContext>
+                    <viewmodels:ConcernsAndSkinCareSurveyViewModel/>
+                </customlayouts:ConcernsQuestionContainerLayout.BindingContext>-->
+            </customlayouts:ConcernsQuestionContainerLayout>
+            <customlayouts:HealthQuestionsContainerLayout x:Name="HealthQuestionSurveyContainer" IsVisible="True">
+                <!--<customlayouts:HealthQuestionsContainerLayout.BindingContext>
+                    <viewmodels:HealthQuestionsSurveyViewModel/>
+                </customlayouts:HealthQuestionsContainerLayout.BindingContext>-->
+            </customlayouts:HealthQuestionsContainerLayout>
+            <customlayouts:LifeStylesQuestionContainerLayout x:Name="LifestylesSurveyContainer" IsVisible="False">
+                <!--<customlayouts:LifeStylesQuestionContainerLayout.BindingContext>
+                    <viewmodels:LifestylesSurveyViewModel/>
+                </customlayouts:LifeStylesQuestionContainerLayout.BindingContext>-->
+            </customlayouts:LifeStylesQuestionContainerLayout>
+        </StackLayout>
+        <!--<Grid Grid.Row="2" Padding="20,0">
+            <Button BackgroundColor="#000" TextColor="#fff" BorderWidth="1" Text="Next" Clicked="NextButtonClicked" TextTransform="None" FontSize="20" Command="{Binding NextQuestionPageCommand}" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="400" HeightRequest="56"/>
+            <Button BackgroundColor="#000" TextColor="#fff" BorderWidth="1" Text="Save &amp; Continue" TextTransform="None" FontSize="20" Command="{Binding FinishCommand}" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="400" HeightRequest="56" IsVisible="{Binding CanFinish}"/>
+        </Grid>-->
+    </Grid>
+    
+    <!--<control:XFTabControl x:Name="Tabcomponent" VerticalOptions="FillAndExpand" TabClicked="Tab_TabClicked" BackgroundColor="#fff" HeaderColor="#fff" HeaderHeight="70" SelectionColor="Gray" SelectedIndex="{Binding Index}">
+        <control:XFTabControl.XFTabPages>
+            <tabview:XFTabPage>
+                <tabview:XFTabPage.Header>
+                    <tabview:XFTabHeader Background="#fff" x:Name="tab1" Unfocused="tab1_Unfocused">
+                        <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="Concerns + Skin Type" FontFamily="RegularFont" FontSize="28" TextColor="#000"/>
+                    </tabview:XFTabHeader>
+                </tabview:XFTabPage.Header>
+                <tabview:XFTabPage.CustomContentPage>
+                    <views:ConcernsSurveyPage Padding="0,20"/>
+                </tabview:XFTabPage.CustomContentPage>
+            </tabview:XFTabPage>
+            <tabview:XFTabPage>
+                <tabview:XFTabPage.Header>
+                    <tabview:XFTabHeader Background="#fff" x:Name="tab2" Unfocused="tab2_Unfocused">
+                        <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="Health Questions" FontFamily="RegularFont" FontSize="28" TextColor="#000"/>
+                    </tabview:XFTabHeader>
+                </tabview:XFTabPage.Header>
+                <tabview:XFTabPage.CustomContentPage>
+                    <views:HealthQuestionsSurveyPage Padding="0,20"/>
+                </tabview:XFTabPage.CustomContentPage>
+            </tabview:XFTabPage>
+            <tabview:XFTabPage>
+                <tabview:XFTabPage.Header>
+                    <tabview:XFTabHeader Background="#fff" x:Name="tab3" Unfocused="tab3_XFTabHeader_Unfocused">
+                        <Label HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Text="You + your Lifestyle" FontFamily="RegularFont" FontSize="28" TextColor="#000"/>
+                    </tabview:XFTabHeader>
+                </tabview:XFTabPage.Header>
+                <tabview:XFTabPage.CustomContentPage>
+                    <views:LifeStylesSurveyPage Padding="0,20"/>
+                </tabview:XFTabPage.CustomContentPage>
+            </tabview:XFTabPage>
+        </control:XFTabControl.XFTabPages>
+    </control:XFTabControl>-->
+</controls:AnimationPage>

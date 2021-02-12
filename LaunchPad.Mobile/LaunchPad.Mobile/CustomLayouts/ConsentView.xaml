@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:InputView="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             x:Class="LaunchPad.Mobile.CustomLayouts.ConsentView"
+             VerticalOptions="FillAndExpand"
+             BackgroundColor="#fff">
+  <ContentView.Content>
+        <Grid RowDefinitions="*,56" VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="40" Padding="20,40">
+                <Label Text="Consents" FontSize="40" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                <Label x:Name="ConsentTextLabel"
+                       Text="Lorem ipsum dolor sit amet, consectetur arat non id dui. Fusce blandit arcu augue, eu porttitor purus sollicitudin eget. Morbi vestibulum auctor quam, eget auctor risus pretium ac. Morbi tincidunt mi sed orci gravida, non tincidunt arcu eleifend. Nam ornare, orci in volutpat laoreet, quam nulla pulvinar mi, sit amet consequat nulla mauris nec orci."
+                       TextType="Html" FontSize="20" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                <Label Text="I hereby consent to:" FontSize="28" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" TextType="Html" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                <StackLayout Spacing="20">
+                    
+                <StackLayout Orientation="Horizontal">
+                    <InputView:CheckBox x:Name="Check1" VerticalOptions="Start" Type="Material" Color="#000" CheckChanged="CheckBox1_CheckChanged"/>
+                    <Label Margin="0,8" FontSize="20" TextColor="#000" Text="My personal details and consultation details being saved to my profile by eventis" FontFamily="RegularFont"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                        <InputView:CheckBox  x:Name="Check2" VerticalOptions="Start" Type="Material" Color="#000" CheckChanged="CheckBox2_CheckChanged"/>
+                    <Label Margin="0,8" FontSize="20" TextColor="#000" Text="All photos saved to my customer profile so before and after images can be used to track to my imporvements over time" FontFamily="RegularFont"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                        <InputView:CheckBox  x:Name="Check3" VerticalOptions="Start" Type="Material" Color="#000" CheckChanged="CheckBox3_CheckChanged"/>
+                    <Label Margin="0,8" FontSize="20" TextColor="#000" Text="My before and after photographs to be used anonymously for marketing purposes" FontFamily="RegularFont"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                        <InputView:CheckBox  x:Name="Check4" VerticalOptions="Start" Type="Material" Color="#000" CheckChanged="CheckBox4_CheckChanged"/>
+                    <Label Margin="0,8" FontSize="20" TextColor="#000" Text="Receiving supporting information, marketing materials and exclusive offers via email" FontFamily="RegularFont"/>
+                </StackLayout>
+                <BoxView HeightRequest="1" BackgroundColor="#ccc"/>
+                <StackLayout Orientation="Horizontal">
+                        <InputView:CheckBox  x:Name="Check5" VerticalOptions="Start" Type="Material" Color="#000" CheckChanged="CheckBox5_CheckChanged"/>
+                    <Label Margin="0,8" FontSize="20" TextColor="#000" Text="I would like my face scan destroyed after it has been used to help set my skin health journey, therefore i accept that before and after comparisons to track my progress will not be available at my nest visit." FontFamily="RegularFont"/>
+                </StackLayout>
+
+                </StackLayout>
+            </StackLayout>
+            <Grid Grid.Row="1" RowDefinitions="46">
+                <Button x:Name="SaveButton" IsEnabled="False" BackgroundColor="WhiteSmoke" TextColor="#fff" Padding="0" Text="Save &amp; Continue" TextTransform="None" FontSize="20" HorizontalOptions="Center" WidthRequest="400"/>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

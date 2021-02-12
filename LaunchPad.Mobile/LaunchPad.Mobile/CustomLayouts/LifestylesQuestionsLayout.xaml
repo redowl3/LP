@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LaunchPad.Mobile.CustomLayouts.LifestylesQuestionsLayout"
+             CompressedLayout.IsHeadless="True">
+    <ContentView.Content>
+        <FlexLayout BindableLayout.ItemsSource="{Binding ChildQuestions}" Wrap="Wrap" Direction="Row" JustifyContent="Start" AlignItems="Start" AlignContent="Start" HorizontalOptions="FillAndExpand" Margin="2,0">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout FlexLayout.Basis="33%" FlexLayout.AlignSelf="Start" Margin="5">
+                        <Grid HorizontalOptions="Center" WidthRequest="600" IsVisible="{Binding LifeStyles}">
+                            <Label Text="{Binding PageFormQuestionData.QuestionText}" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                        </Grid>
+                        <StackLayout BindableLayout.ItemsSource="{Binding FormQuestionData.Answers}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid RowDefinitions="56">
+                                        <Label Text="{Binding ResponseText}" FontSize="28" TextType="Html" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="#000" Style="{StaticResource ContentTitle}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
+                    </StackLayout>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+    </ContentView.Content>
+</ContentView>

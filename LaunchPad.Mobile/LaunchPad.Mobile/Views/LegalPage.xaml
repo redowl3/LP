@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customlayouts="clr-namespace:LaunchPad.Mobile.CustomLayouts"
+             x:Class="LaunchPad.Mobile.Views.LegalPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <customlayouts:TermsAndConditionView IsVisible="{Binding IsTerms}"/>
+            <customlayouts:DeclarationView IsVisible="{Binding IsDeclarations}"/>
+            <customlayouts:ConsentView IsVisible="{Binding IsConsents}"/>
+        </StackLayout>        
+    </ContentPage.Content>
+</ContentPage>
